@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: sharding
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://192.168.0.111:3306/db_0?zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+#    username: dev
+#    password: dev_123
+mybatis:
+  mapper-locations: classpath:META-INF/mappers/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    root: info

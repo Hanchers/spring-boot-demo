@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hancher.demo.sharding.jdbc.repository.dao.OrderLevelEntityMapper">
+  <resultMap id="BaseResultMap" type="com.hancher.demo.sharding.jdbc.repository.entity.OrderLevelEntity">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="level_code" jdbcType="VARCHAR" property="levelCode" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="parent_level_code" jdbcType="VARCHAR" property="parentLevelCode" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <insert id="insert" parameterType="com.hancher.demo.sharding.jdbc.repository.entity.OrderLevelEntity">
+    insert into order_level (id, level_code, level_name, 
+      level, parent_level_code, is_del
+      )
+    values (#{id,jdbcType=INTEGER}, #{levelCode,jdbcType=VARCHAR}, #{levelName,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{parentLevelCode,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hancher.demo.sharding.jdbc.repository.entity.OrderLevelEntity">
+    insert into order_level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="levelCode != null">
+        level_code,
+      </if>
+      <if test="levelName != null">
+        level_name,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="parentLevelCode != null">
+        parent_level_code,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="levelCode != null">
+        #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="parentLevelCode != null">
+        #{parentLevelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+
+
+</mapper>

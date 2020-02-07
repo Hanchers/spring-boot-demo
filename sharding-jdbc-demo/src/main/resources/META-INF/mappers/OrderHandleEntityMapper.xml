@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hancher.demo.sharding.jdbc.repository.dao.OrderHandleEntityMapper">
+  <resultMap id="BaseResultMap" type="com.hancher.demo.sharding.jdbc.repository.entity.OrderHandleEntity">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="handler_code" jdbcType="VARCHAR" property="handlerCode" />
+    <result column="handler_name" jdbcType="VARCHAR" property="handlerName" />
+    <result column="center_name" jdbcType="VARCHAR" property="centerName" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+  </resultMap>
+  <insert id="insert" parameterType="com.hancher.demo.sharding.jdbc.repository.entity.OrderHandleEntity">
+    insert into order_handle (id, order_code, handler_code,
+      handler_name, center_name, city_code, 
+      is_del)
+    values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR}, #{handlerCode,jdbcType=VARCHAR}, 
+      #{handlerName,jdbcType=VARCHAR}, #{centerName,jdbcType=VARCHAR}, #{cityCode,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hancher.demo.sharding.jdbc.repository.entity.OrderHandleEntity">
+    insert into order_handle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderCode != null">
+        order_code,
+      </if>
+      <if test="handlerCode != null">
+        handler_code,
+      </if>
+      <if test="handlerName != null">
+        handler_name,
+      </if>
+      <if test="centerName != null">
+        center_name,
+      </if>
+      <if test="cityCode != null">
+        city_code,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerCode != null">
+        #{handlerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="handlerName != null">
+        #{handlerName,jdbcType=VARCHAR},
+      </if>
+      <if test="centerName != null">
+        #{centerName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

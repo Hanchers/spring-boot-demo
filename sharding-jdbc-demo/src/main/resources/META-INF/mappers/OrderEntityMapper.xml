@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hancher.demo.sharding.jdbc.repository.dao.OrderEntityMapper">
+    <resultMap id="BaseResultMap" type="com.hancher.demo.sharding.jdbc.repository.entity.OrderEntity">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="order_code" jdbcType="VARCHAR" property="orderCode"/>
+        <result column="one_code" jdbcType="VARCHAR" property="oneCode"/>
+        <result column="two_code" jdbcType="VARCHAR" property="twoCode"/>
+        <result column="biz_code" jdbcType="VARCHAR" property="bizCode"/>
+        <result column="handler_code" jdbcType="VARCHAR" property="handlerCode"/>
+        <result column="timeout_time" jdbcType="TIMESTAMP" property="timeoutTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="is_timeout" jdbcType="INTEGER" property="isTimeout"/>
+        <result column="order_desc" jdbcType="VARCHAR" property="orderDesc"/>
+        <result column="start_stamp" jdbcType="BIGINT" property="startStamp"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.hancher.demo.sharding.jdbc.repository.entity.OrderEntity">
+        insert into t_order (id, order_code, one_code,
+                             two_code, biz_code, handler_code,
+                             timeout_time, status, is_timeout,
+                             order_desc, start_stamp, is_del)
+        values (#{id,jdbcType=BIGINT}, #{orderCode,jdbcType=VARCHAR}, #{oneCode,jdbcType=VARCHAR},
+                #{twoCode,jdbcType=VARCHAR}, #{bizCode,jdbcType=VARCHAR}, #{handlerCode,jdbcType=VARCHAR},
+                #{timeoutTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{isTimeout,jdbcType=INTEGER},
+                #{orderDesc,jdbcType=VARCHAR}, #{startStamp,jdbcType=BIGINT}, #{isDel,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hancher.demo.sharding.jdbc.repository.entity.OrderEntity">
+        insert into t_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orderCode != null">
+                order_code,
+            </if>
+            <if test="oneCode != null">
+                one_code,
+            </if>
+            <if test="twoCode != null">
+                two_code,
+            </if>
+            <if test="bizCode != null">
+                biz_code,
+            </if>
+            <if test="handlerCode != null">
+                handler_code,
+            </if>
+            <if test="timeoutTime != null">
+                timeout_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="isTimeout != null">
+                is_timeout,
+            </if>
+            <if test="orderDesc != null">
+                order_desc,
+            </if>
+            <if test="startStamp != null">
+                start_stamp,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="orderCode != null">
+                #{orderCode,jdbcType=VARCHAR},
+            </if>
+            <if test="oneCode != null">
+                #{oneCode,jdbcType=VARCHAR},
+            </if>
+            <if test="twoCode != null">
+                #{twoCode,jdbcType=VARCHAR},
+            </if>
+            <if test="bizCode != null">
+                #{bizCode,jdbcType=VARCHAR},
+            </if>
+            <if test="handlerCode != null">
+                #{handlerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="timeoutTime != null">
+                #{timeoutTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isTimeout != null">
+                #{isTimeout,jdbcType=INTEGER},
+            </if>
+            <if test="orderDesc != null">
+                #{orderDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="startStamp != null">
+                #{startStamp,jdbcType=BIGINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteById">
+        delete
+        from t_order
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByIdAndHandler">
+        delete
+        from t_order
+        where id = #{id,jdbcType=BIGINT}
+          and handler_code = #{handlerCode}
+    </delete>
+
+    <select id="selectByHandlerCode" resultMap="BaseResultMap">
+        select *
+        from t_order
+        where handler_code = #{handlerCode}
+    </select>
+
+    <select id="selectByHandlerCodes" resultMap="BaseResultMap">
+        select * from t_order where
+        handler_code in
+        <foreach collection="handlerCodes" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectAllAboutTable" resultType="java.util.Map">
+        select *
+        from t_order o
+                 inner join order_handle h on o.order_code = h.order_code
+                 inner join order_handle_record r on o.order_code = r.order_code
+        where o.handler_code = #{handlerCode}
+          and r.operator_code = #{handlerCode}
+        limit 1
+    </select>
+
+    <select id="selectAllTable" resultType="java.util.Map">
+        select *
+        from t_order o
+                 inner join order_handle h on o.order_code = h.order_code
+                 inner join order_handle_record r on o.order_code = r.order_code
+                 inner join order_level l on l.level_code = o.one_code
+        where o.handler_code = #{handlerCode}
+          and r.operator_code = #{handlerCode}
+        limit 1
+    </select>
+</mapper>
