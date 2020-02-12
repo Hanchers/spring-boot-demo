@@ -23,7 +23,7 @@ class OrderServiceImplTest extends BaseTest {
 
     @Test
     void createOrder() {
-        int code = 4;
+        int code = 6;
         OrderEntity order = new OrderEntity();
         order.setOrderCode("order-"+code);
         order.setBizCode("hancher-test-"+code);
@@ -87,6 +87,17 @@ class OrderServiceImplTest extends BaseTest {
     void selectByShardingColumns() {
         List<Integer> handlerCodes = Arrays.asList(1, 2, 3, 4);
         List<OrderEntity> list = orderService.selectByShardingColumns(handlerCodes);
+        Assert.assertEquals(4,list.size());
+    }
+
+    /**
+     * 测试 多个字段同时in 的情况
+     */
+    @Test
+    void selectByShardingColumnsAndIds() {
+        List<Integer> handlerCodes = Arrays.asList(2,6,1,5);
+        List<Long> ids = Arrays.asList(434436544632193024L,432637498665992192L,434436373387149312L,1L);
+        List<OrderEntity> list = orderService.selectByShardingColumnsAndIds(handlerCodes,ids);
         Assert.assertEquals(4,list.size());
     }
 

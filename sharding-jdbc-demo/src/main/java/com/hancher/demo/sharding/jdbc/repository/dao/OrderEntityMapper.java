@@ -20,6 +20,8 @@ public interface OrderEntityMapper {
     OrderEntity selectByHandlerCode(Integer handlerCode);
 
     List<OrderEntity> selectByHandlerCodes(@Param("handlerCodes") List<Integer> handlerCodes);
+    List<OrderEntity> selectByHandlerCodesAndIds(@Param("handlerCodes") List<Integer> handlerCodes
+            ,@Param("ids") List<Long> ids);
 
     Map selectAllAboutTable(Integer handlerCode);
 

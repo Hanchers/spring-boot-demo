@@ -72,6 +72,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderEntity> selectByShardingColumnsAndIds(List<Integer> handlerCodes, List<Long> ids) {
+        return orderEntityMapper.selectByHandlerCodesAndIds(handlerCodes,ids);
+    }
+
+    @Override
     public Map selectAllAboutTable(Integer handlerCode) {
         return orderEntityMapper.selectAllAboutTable(handlerCode);
     }

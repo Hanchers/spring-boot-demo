@@ -132,6 +132,18 @@
         </foreach>
     </select>
 
+    <select id="selectByHandlerCodesAndIds" resultMap="BaseResultMap">
+        select * from t_order where
+        id in
+        <foreach collection="ids" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+        and handler_code in
+        <foreach collection="handlerCodes" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </select>
+
     <select id="selectAllAboutTable" resultType="java.util.Map">
         select *
         from t_order o

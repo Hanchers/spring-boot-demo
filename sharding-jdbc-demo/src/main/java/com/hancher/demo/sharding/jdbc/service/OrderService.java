@@ -22,6 +22,7 @@ public interface OrderService {
 
     OrderEntity selectByShardingColumn(Integer handlerCode);
     List<OrderEntity> selectByShardingColumns(List<Integer> handlerCodes);
+    List<OrderEntity> selectByShardingColumnsAndIds(List<Integer> handlerCodes,List<Long> ids);
 
 
 
