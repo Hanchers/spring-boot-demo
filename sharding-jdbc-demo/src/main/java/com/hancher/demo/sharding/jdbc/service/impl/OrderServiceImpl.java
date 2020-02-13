@@ -87,6 +87,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Map selectAllTableLimit(Long id) {
+        return orderEntityMapper.selectAllTableLimit( id);
+    }
+
+    @Override
     public OrderLevelEntity seleteLevelByCode(Integer code) {
         return null;
     }

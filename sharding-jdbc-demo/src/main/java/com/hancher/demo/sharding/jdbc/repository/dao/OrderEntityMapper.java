@@ -27,4 +27,6 @@ public interface OrderEntityMapper {
 
     ////关联表+配置表
     Map selectAllTable(Integer handlerCode);
+
+    Map selectAllTableLimit(Long id);
 }

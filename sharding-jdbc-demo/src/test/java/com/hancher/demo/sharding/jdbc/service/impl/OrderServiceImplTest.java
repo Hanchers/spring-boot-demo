@@ -113,6 +113,21 @@ class OrderServiceImplTest extends BaseTest {
         System.out.println(map);
     }
 
+    /**
+     * 测试分表查询limit 数量时 处理方式
+     * 会全路由
+     * @param
+     * @author Hancher
+     * @date  2020年02月13日  15:45
+     * @since 1.0
+     * @return
+     */
+    @Test
+    void selectAllTableLimit() {
+        Map map = orderService.selectAllTableLimit(0L);
+        System.out.println(map);
+    }
+
     @Test
     void seleteLevelByCode() {
 
