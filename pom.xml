@@ -17,6 +17,7 @@
 
     <modules>
         <module>sharding-jdbc-demo</module>
+        <module>web-demo</module>
     </modules>
 
 
