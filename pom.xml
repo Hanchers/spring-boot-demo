@@ -18,6 +18,7 @@
     <modules>
         <module>sharding-jdbc-demo</module>
         <module>web-demo</module>
+        <module>reactive-web-demo</module>
     </modules>
 
 
