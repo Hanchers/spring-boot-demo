@@ -19,6 +19,8 @@
         <module>sharding-jdbc-demo</module>
         <module>web-demo</module>
         <module>reactive-web-demo</module>
+        <module>mybatis-demo</module>
+        <module>springboot-openapi</module>
     </modules>
 
 
