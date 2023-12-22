@@ -27,6 +27,7 @@
         <module>reactive-web-demo</module>
         <module>mybatis-demo</module>
         <module>springdoc-openapi</module>
+        <module>springboot-filter</module>
     </modules>
 
 
